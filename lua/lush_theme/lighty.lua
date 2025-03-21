@@ -36,7 +36,7 @@ local theme = lush(function(injected_functions)
 		FoldColumn({ Folded }), -- 'foldcolumn'
 		SignColumn({ fg = forest_green }), -- Column where |signs| are displayed
 		Substitute({ CurSearch }), -- |:substitute| replacement text highlighting
-		LineNr({ fg = blue.da(40) }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+		LineNr({ fg = forest_green }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
 		LineNrAbove({ LineNr }), -- Reusing LineNr theme for lines above
 		LineNrBelow({ LineNr }), -- Reusing LineNr theme for lines below
 		CursorLineNr({ fg = blue.li(20) }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
