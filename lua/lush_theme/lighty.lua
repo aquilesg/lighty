@@ -26,7 +26,7 @@ local theme = lush(function(injected_functions)
 		DiffChange({ bg = white_gray.da(20) }), -- Diff mode: Changed line |diff.txt|
 		DiffDelete({ bg = red.li(10), fg = white_gray }), -- Diff mode: Deleted line |diff.txt|
 		DiffText({ bg = forest_green.li(40) }), -- Diff mode: Changed text within a changed line |diff.txt|
-		EndOfBuffer({ fg = white_gray.da(10) }), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+		EndOfBuffer({ fg = white_gray.da(40) }), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
 		TermCursor({ bg = teal, fg = white_gray }), -- Cursor in a focused terminal
 		TermCursorNC({ bg = white_gray.da(20), fg = teal }), -- Cursor in an unfocused terminal
 		ErrorMsg({ fg = red, gui = "bold" }), -- Error messages on the command line
@@ -43,7 +43,7 @@ local theme = lush(function(injected_functions)
 		CursorLineFold({ Folded }), -- Reusing Folded theme
 		CursorLineSign({ SignColumn }), -- Reusing SignColumn theme
 		ModeMsg({ fg = blue.li(30) }), -- 'showmode' message (e.g., "-- INSERT -- ")
-		MsgArea({ fg = green }), -- Area for messages and cmdline
+		MsgArea({ fg = teal }), -- Area for messages and cmdline
 		MoreMsg({ fg = teal }), -- |more-prompt|
 		NonText({ fg = white_gray.da(50) }), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text
 		Normal({ bg = white_gray.li(20), fg = blue.da(30) }), -- Normal text
@@ -65,15 +65,15 @@ local theme = lush(function(injected_functions)
 		SpecialKey({ fg = teal.da(10) }), -- Unprintable characters: text displayed differently from what it really is
 		SpellBad({ bg = red.li(30), gui = "underline" }), -- Word that is not recognized by the spellchecker. |spell|
 		SpellCap({ gui = "underline" }), -- Word that should start with a capital
-		SpellLocal({ fg = green, gui = "underline" }), -- Word recognized as locally correct
-		SpellRare({ fg = green, gui = "underline" }), -- Word that is hardly ever used
+		SpellLocal({ fg = forest_green, gui = "underline" }), -- Word recognized as locally correct
+		SpellRare({ fg = forest_green, gui = "underline" }), -- Word that is hardly ever used
 		StatusLine({ bg = blue.li(20), fg = white_gray.li(10) }), -- Status line of current window
 		StatusLineNC({ fg = teal.li(10) }), -- Status lines of not-current windows
 		-- Lualine specific groups
 		LualineA_normal({ bg = forest_green, fg = white_gray.li(20) }),
 		LualineB_normal({ bg = forest_green.li(20), fg = blue.da(20) }),
 		LualineC_normal({ bg = white_gray.li(10), fg = blue }),
-		TabLine({ bg = white_gray.da(20), fg = green }), -- Tab pages line, not active tab page label
+		TabLine({ bg = white_gray.da(20), fg = orange }), -- Tab pages line, not active tab page label
 		TabLineFill({ TabLine }), -- Tab pages line, where there are no labels
 		TabLineSel({ bg = teal, fg = white_gray }), -- Tab pages line, active tab page label
 		Title({ fg = teal.li(20), gui = "bold" }), -- Titles for output from ":set all", ":autocmd" etc.
@@ -82,7 +82,7 @@ local theme = lush(function(injected_functions)
 		WarningMsg({ fg = orange, gui = "bold" }), -- Warning messages
 		Whitespace({ fg = white_gray.da(8) }), -- "nbsp", "space", "tab" and "trail" in 'listchars'
 		Winseparator({ VertSplit }), -- Separator between window splits. Inherits from |hl-VertSplit| by default, which it will replace eventually.
-		WildMenu({ bg = green.li(20), fg = white_gray }), -- Current match in 'wildmenu' completion
+		WildMenu({ bg = teal, fg = white_gray }), -- Current match in 'wildmenu' completion
 		WinBar({}), -- Window bar of current window
 		WinBarNC({}), -- Window bar of not-current windows
 
@@ -135,8 +135,8 @@ local theme = lush(function(injected_functions)
 
 		-- See :h lsp-highlight, some groups may not be listed, submit a PR fix to lush-template!
 		--
-		LspReferenceText({ bg = white_gray.da(15) }), -- Used for highlighting "text" references
-		LspReferenceRead({ bg = white_gray.da(15) }), -- Used for highlighting "read" references
+		LspReferenceText({ bg = white_gray.da(35) }), -- Used for highlighting "text" references
+		LspReferenceRead({ bg = white_gray.da(35) }), -- Used for highlighting "read" references
 		LspReferenceWrite({ bg = white_gray.da(15) }), -- Used for highlighting "write" references
 		LspCodeLens({ fg = forest_green.da(10) }), -- Used to color the virtual text of the codelens. See |nvim_buf_set_extmark()|.
 		LspCodeLensSeparator({ fg = forest_green.da(20) }), -- Used to color the seperator between two or more code lens.
@@ -231,7 +231,7 @@ local theme = lush(function(injected_functions)
 		sym("@include")({ fg = teal.li(10) }), -- Include
 		sym("@preproc")({ fg = teal.li(20) }), -- PreProc
 		sym("@debug")({ fg = red }), -- Debug
-		sym("@tag")({ fg = green }), -- Tag
+		sym("@tag")({ fg = red, bg = forest_green.li(55) }), -- Tag
 		sym("@markup.link.label.markdown_inline")({ fg = teal.li(10) }),
 		sym("@markup.strong")({ fg = orange.li(10), gui = "bold" }),
 
