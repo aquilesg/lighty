@@ -46,7 +46,7 @@ local theme = lush(function(injected_functions)
 		MsgArea({ fg = green }), -- Area for messages and cmdline
 		MoreMsg({ fg = teal }), -- |more-prompt|
 		NonText({ fg = white_gray.da(50) }), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text
-		Normal({ bg = white_gray.li(20), fg = forest_green.da(30) }), -- Normal text
+		Normal({ bg = white_gray.li(20), fg = blue.da(30) }), -- Normal text
 		NormalFloat({ Normal }), -- Normal text in floating windows.
 		FloatBorder({ fg = orange }), -- Border of floating windows.
 		FloatTitle({ FloatBorder }), -- Title of floating windows.
@@ -147,27 +147,27 @@ local theme = lush(function(injected_functions)
 		DiagnosticError({ fg = red }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticWarn({ fg = orange }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticInfo({ fg = teal }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticHint({ fg = green }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticHint({ fg = teal }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticOk({ fg = forest_green }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticVirtualTextError({ fg = red.da(10), bg = red.da(80) }), -- Used for "Error" diagnostic virtual text.
-		DiagnosticVirtualTextWarn({ fg = orange.da(10), bg = orange.da(80) }), -- Used for "Warn" diagnostic virtual text.
-		DiagnosticVirtualTextInfo({ fg = teal.da(10), bg = teal.da(80) }), -- Used for "Info" diagnostic virtual text.
-		DiagnosticVirtualTextHint({ fg = green.da(10), bg = green.da(80) }), -- Used for "Hint" diagnostic virtual text.
-		DiagnosticVirtualTextOk({ fg = forest_green.da(10), bg = forest_green.da(80) }), -- Used for "Ok" diagnostic virtual text.
+		DiagnosticVirtualTextError({ fg = red.da(20), bg = red.li(35) }), -- Used for "Error" diagnostic virtual text.
+		DiagnosticVirtualTextWarn({ fg = orange.da(30), bg = orange.li(70) }), -- Used for "Warn" diagnostic virtual text.
+		DiagnosticVirtualTextInfo({ fg = teal.da(10), bg = forest_green.li(30) }), -- Used for "Info" diagnostic virtual text.
+		DiagnosticVirtualTextHint({ DiagnosticVirtualTextInfo }), -- Used for "Hint" diagnostic virtual text.
+		DiagnosticVirtualTextOk({ DiagnosticVirtualTextInfo }), -- Used for "Ok" diagnostic virtual text.
 		DiagnosticUnderlineError({ fg = red, gui = "undercurl" }), -- Used to underline "Error" diagnostics.
 		DiagnosticUnderlineWarn({ fg = orange, gui = "undercurl" }), -- Used to underline "Warn" diagnostics.
 		DiagnosticUnderlineInfo({ fg = teal, gui = "undercurl" }), -- Used to underline "Info" diagnostics.
-		DiagnosticUnderlineHint({ fg = green, gui = "undercurl" }), -- Used to underline "Hint" diagnostics.
+		DiagnosticUnderlineHint({ fg = teal, gui = "undercurl" }), -- Used to underline "Hint" diagnostics.
 		DiagnosticUnderlineOk({ fg = forest_green, gui = "undercurl" }), -- Used to underline "Ok" diagnostics.
 		DiagnosticFloatingError({ fg = red }), -- Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
 		DiagnosticFloatingWarn({ fg = orange }), -- Used to color "Warn" diagnostic messages in diagnostics float.
 		DiagnosticFloatingInfo({ fg = teal }), -- Used to color "Info" diagnostic messages in diagnostics float.
-		DiagnosticFloatingHint({ fg = green }), -- Used to color "Hint" diagnostic messages in diagnostics float.
+		DiagnosticFloatingHint({ fg = blue }), -- Used to color "Hint" diagnostic messages in diagnostics float.
 		DiagnosticFloatingOk({ fg = forest_green }), -- Used to color "Ok" diagnostic messages in diagnostics float.
 		DiagnosticSignError({ fg = red }), -- Used for "Error" signs in sign column.
 		DiagnosticSignWarn({ fg = orange }), -- Used for "Warn" signs in sign column.
 		DiagnosticSignInfo({ fg = teal }), -- Used for "Info" signs in sign column.
-		DiagnosticSignHint({ fg = green }), -- Used for "Hint" signs in sign column.
+		DiagnosticSignHint({ fg = blue }), -- Used for "Hint" signs in sign column.
 		DiagnosticSignOk({ fg = forest_green }), -- Used for "Ok" signs in sign column.
 
 		-- Tree-Sitter syntax groups.
@@ -233,6 +233,7 @@ local theme = lush(function(injected_functions)
 		sym("@debug")({ fg = red }), -- Debug
 		sym("@tag")({ fg = green }), -- Tag
 		sym("@markup.link.label.markdown_inline")({ fg = teal.li(10) }),
+		sym("@markup.strong")({ fg = orange.li(10), gui = "bold" }),
 
 		-- Render Markdown Highlights
 		RenderMarkdownCode({ bg = white_gray.da(5) }),
