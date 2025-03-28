@@ -47,7 +47,7 @@ local theme = lush(function(injected_functions)
 		MoreMsg({ fg = teal }), -- |more-prompt|
 		NonText({ fg = white_gray.da(50) }), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text
 		Normal({ bg = white_gray.li(20), fg = blue.da(30) }), -- Normal text
-		NormalFloat({ Normal }), -- Normal text in floating windows.
+		NormalFloat({ bg = white_gray.da(10) }), -- Normal text in floating windows.
 		FloatBorder({ fg = orange }), -- Border of floating windows.
 		FloatTitle({ FloatBorder }), -- Title of floating windows.
 		NormalNC({ Normal }), -- normal text in non-current windows - same as Normal for now
