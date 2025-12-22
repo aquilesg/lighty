@@ -423,8 +423,11 @@ local theme = lush(function(injected_functions)
 		-- ┌────────────────────────────────────────────────────┐
 		-- │                   Treesitter                       │
 		-- └────────────────────────────────────────────────────┘
+		-- See :h treesitter-highlight-groups
+		-- Updated for nvim-treesitter main branch (2024+)
 
-		-- Text
+		-- ── Identifiers ──────────────────────────────────────────────
+		-- Text (legacy - use @markup.* for new code)
 		sym("@text.literal")({ fg = c.comment }),
 		sym("@text.reference")({ fg = c.field }),
 		sym("@text.title")({ fg = p.teal, gui = "bold" }),
@@ -452,22 +455,28 @@ local theme = lush(function(injected_functions)
 		sym("@constant.macro")({ fg = c.define }),
 
 		-- Preprocessor
-		sym("@define")({ fg = c.define }),
-		sym("@macro")({ fg = c.macro }),
-		sym("@preproc")({ fg = c.preproc }),
+		sym("@define")({ fg = c.define }), -- LEGACY: use @keyword.directive.define
+		sym("@macro")({ fg = c.macro }), -- LEGACY: use @function.macro
+		sym("@preproc")({ fg = c.preproc }), -- LEGACY: use @keyword.directive
 
 		-- Strings & Characters
-		sym("@string")({ fg = p.red.da(20) }),
-		sym("@string.escape")({ fg = c.special_char }),
-		sym("@string.special")({ fg = c.special_char }),
-		sym("@string.regex")({ fg = c.special }),
-		sym("@character")({ fg = p.red.li(10) }),
-		sym("@character.special")({ fg = c.special_char }),
+		sym("@string")({ fg = p.red.da(20) }), -- string literals
+		sym("@string.documentation")({ fg = p.forest_green.li(10), gui = "italic" }), -- string documenting code (e.g. Python docstrings)
+		sym("@string.regexp")({ fg = c.special }), -- regular expressions
+		sym("@string.regex")({ fg = c.special }), -- LEGACY: use @string.regexp
+		sym("@string.escape")({ fg = c.special_char }), -- escape sequences
+		sym("@string.special")({ fg = c.special_char }), -- other special strings (e.g. dates)
+		sym("@string.special.symbol")({ fg = c.special }), -- symbols or atoms
+		sym("@string.special.path")({ fg = p.teal }), -- filenames
+		sym("@string.special.url")({ fg = p.teal.li(20), gui = "underline" }), -- URIs (e.g. hyperlinks)
+		sym("@character")({ fg = p.red.li(10) }), -- character literals
+		sym("@character.special")({ fg = c.special_char }), -- special characters (e.g. wildcards)
 
 		-- Numbers
-		sym("@number")({ fg = c.number }),
-		sym("@boolean")({ fg = c.boolean }),
-		sym("@float")({ fg = p.orange.li(10) }),
+		sym("@number")({ fg = c.number }), -- numeric literals
+		sym("@number.float")({ fg = p.orange.li(10) }), -- floating-point number literals
+		sym("@float")({ fg = p.orange.li(10) }), -- LEGACY: use @number.float
+		sym("@boolean")({ fg = c.boolean }), -- boolean literals
 
 		-- Functions
 		sym("@function")({ fg = c.func }),
@@ -478,40 +487,53 @@ local theme = lush(function(injected_functions)
 		sym("@function.method.call")({ fg = c.func }),
 
 		-- Parameters & Variables
-		sym("@parameter")({ fg = c.parameter }),
-		sym("@variable")({ fg = c.variable }),
-		sym("@variable.builtin")({ fg = p.teal }),
-		sym("@variable.parameter")({ fg = c.parameter }),
-		sym("@variable.member")({ fg = c.field }),
+		sym("@parameter")({ fg = c.parameter }), -- LEGACY: use @variable.parameter
+		sym("@variable")({ fg = c.variable }), -- various variable names
+		sym("@variable.builtin")({ fg = p.teal }), -- built-in variable names (e.g. `this`, `self`)
+		sym("@variable.parameter")({ fg = c.parameter }), -- parameters of a function
+		sym("@variable.parameter.builtin")({ fg = c.parameter }), -- special parameters (e.g. `_`, `it`)
+		sym("@variable.member")({ fg = c.field }), -- object and struct fields
 
 		-- Methods & Fields
-		sym("@method")({ fg = c.func }),
-		sym("@method.call")({ fg = c.func }),
-		sym("@field")({ fg = c.field }),
-		sym("@property")({ fg = c.property }),
+		sym("@method")({ fg = c.func }), -- LEGACY: use @function.method
+		sym("@method.call")({ fg = c.func }), -- LEGACY: use @function.method.call
+		sym("@field")({ fg = c.field }), -- LEGACY: use @variable.member
+		sym("@property")({ fg = c.property }), -- similar to `@variable.member`, for properties
 
 		-- Types
-		sym("@type")({ fg = c.type }),
-		sym("@type.builtin")({ fg = p.blue.li(10) }),
-		sym("@type.definition")({ fg = p.teal }),
-		sym("@type.qualifier")({ fg = c.keyword }),
+		sym("@type")({ fg = c.type }), -- type or class definitions and annotations
+		sym("@type.builtin")({ fg = p.blue.li(10) }), -- built-in types
+		sym("@type.definition")({ fg = p.teal }), -- identifiers in type definitions
+		sym("@type.qualifier")({ fg = c.keyword }), -- type qualifiers
+
+		-- Attributes
+		sym("@attribute")({ fg = c.macro }), -- attribute annotations (e.g. Python decorators, Rust attributes)
+		sym("@attribute.builtin")({ fg = c.macro }), -- built-in annotations (e.g. `@property` in Python)
 
 		-- Classes & Structures
-		sym("@constructor")({ fg = c.constant }),
-		sym("@storageclass")({ fg = p.blue.li(10) }),
-		sym("@structure")({ fg = p.blue.li(20) }),
-		sym("@namespace")({ fg = c.namespace }),
-		sym("@module")({ fg = c.namespace }),
+		sym("@constructor")({ fg = c.constant }), -- constructor calls and definitions
+		sym("@storageclass")({ fg = p.blue.li(10) }), -- LEGACY: use @keyword.modifier
+		sym("@structure")({ fg = p.blue.li(20) }), -- LEGACY: use @type
+		sym("@namespace")({ fg = c.namespace }), -- LEGACY: use @module
+		sym("@module")({ fg = c.namespace }), -- modules or namespaces
+		sym("@module.builtin")({ fg = p.blue.li(10) }), -- built-in modules or namespaces
 
 		-- Keywords & Control Flow
-		sym("@keyword")({ fg = c.keyword }),
-		sym("@keyword.function")({ fg = c.keyword }),
-		sym("@keyword.operator")({ fg = c.operator }),
-		sym("@keyword.return")({ fg = c.keyword }),
-		sym("@keyword.conditional")({ fg = c.conditional }),
-		sym("@keyword.repeat")({ fg = c.loop }),
-		sym("@keyword.import")({ fg = c.include }),
-		sym("@keyword.exception")({ fg = c.exception }),
+		sym("@keyword")({ fg = c.keyword }), -- keywords not fitting into specific categories
+		sym("@keyword.coroutine")({ fg = c.keyword }), -- keywords related to coroutines (e.g. `async`, `await`)
+		sym("@keyword.function")({ fg = c.keyword }), -- keywords that define a function (e.g. `func`, `def`)
+		sym("@keyword.operator")({ fg = c.operator }), -- operators that are English words (e.g. `and`, `or`, `not`)
+		sym("@keyword.import")({ fg = c.include }), -- keywords for including modules (e.g. `import`, `from`)
+		sym("@keyword.type")({ fg = c.type }), -- keywords describing composite types (e.g. `struct`, `enum`)
+		sym("@keyword.modifier")({ fg = p.blue.li(10) }), -- keywords modifying other constructs (e.g. `const`, `static`)
+		sym("@keyword.repeat")({ fg = c.loop }), -- keywords related to loops (e.g. `for`, `while`)
+		sym("@keyword.return")({ fg = c.keyword }), -- keywords like `return` and `yield`
+		sym("@keyword.debug")({ fg = c.error }), -- keywords related to debugging
+		sym("@keyword.exception")({ fg = c.exception }), -- keywords related to exceptions (e.g. `throw`, `catch`)
+		sym("@keyword.conditional")({ fg = c.conditional }), -- keywords related to conditionals (e.g. `if`, `else`)
+		sym("@keyword.conditional.ternary")({ fg = c.conditional }), -- ternary operator (e.g. `?`, `:`)
+		sym("@keyword.directive")({ fg = c.preproc }), -- various preprocessor directives and shebangs
+		sym("@keyword.directive.define")({ fg = c.define }), -- preprocessor definition directives
 
 		sym("@conditional")({ fg = c.conditional }),
 		sym("@repeat")({ fg = c.loop }),
@@ -521,12 +543,13 @@ local theme = lush(function(injected_functions)
 		sym("@include")({ fg = c.include }),
 
 		-- Tags & Attributes (HTML/JSX)
-		sym("@tag")({ fg = c.tag, bg = p.forest_green.li(55) }),
-		sym("@tag.attribute")({ fg = c.property }),
-		sym("@tag.delimiter")({ fg = c.delimiter }),
+		sym("@tag")({ fg = c.tag, bg = p.forest_green.li(55) }), -- XML-style tag names (e.g. in HTML, JSX)
+		sym("@tag.builtin")({ fg = c.tag }), -- builtin tag names (e.g. HTML5 tags)
+		sym("@tag.attribute")({ fg = c.property }), -- attributes (e.g. `id`, `class`)
+		sym("@tag.delimiter")({ fg = c.delimiter }), -- tag delimiters (e.g. `<`, `>`, `/`)
 
 		-- Debug
-		sym("@debug")({ fg = c.error }),
+		sym("@debug")({ fg = c.error }), -- LEGACY: use @keyword.debug
 
 		-- Markup (Markdown, etc.)
 		sym("@markup")({ fg = c.fg }),
@@ -547,16 +570,41 @@ local theme = lush(function(injected_functions)
 		sym("@markup.link.label")({ fg = c.include }),
 		sym("@markup.link.label.markdown_inline")({ fg = c.include }),
 		sym("@markup.link.url")({ fg = p.teal.li(20), gui = "underline" }),
-		sym("@markup.raw")({ fg = c.string }),
-		sym("@markup.raw.block")({ fg = c.string }),
+		sym("@markup.raw")({ fg = c.string }), -- literal or verbatim text (e.g. inline code)
+		sym("@markup.raw.block")({ bg = c.bg_dark }), -- literal or verbatim text as a stand-alone block
 		sym("@markup.list")({ fg = c.special }),
 		sym("@markup.list.checked")({ fg = c.ok }),
 		sym("@markup.list.unchecked")({ fg = c.fg_muted }),
 
 		-- Diff
-		sym("@diff.plus")({ fg = c.git_add }),
-		sym("@diff.minus")({ fg = c.git_delete }),
-		sym("@diff.delta")({ fg = c.git_change }),
+		sym("@diff.plus")({ fg = c.git_add }), -- added text (for diff files)
+		sym("@diff.minus")({ fg = c.git_delete }), -- deleted text
+		sym("@diff.delta")({ fg = c.git_change }), -- changed text
+
+		-- ══════════════════════════════════════════════════════════════
+		-- LEGACY CAPTURES (for backwards compatibility)
+		-- These link to the new standard captures above
+		-- Note: Some legacy captures are already defined above, so we only
+		-- include ones that weren't already defined
+		-- ══════════════════════════════════════════════════════════════
+
+		-- Legacy text/markup captures (renamed to @markup.*)
+		-- Note: @text.literal, @text.reference, @text.title, @text.uri, 
+		-- @text.underline, and @text.todo are already defined above
+		sym("@text")({ fg = c.fg }), -- LEGACY: use Normal or @markup
+		sym("@text.strong")({ fg = p.orange.li(10), gui = "bold" }), -- LEGACY: use @markup.strong
+		sym("@text.emphasis")({ gui = "italic" }), -- LEGACY: use @markup.italic
+		sym("@text.strike")({ gui = "strikethrough" }), -- LEGACY: use @markup.strikethrough
+		sym("@text.math")({ fg = c.number }), -- LEGACY: use @markup.math
+		sym("@text.environment")({ fg = c.func }), -- LEGACY
+		sym("@text.environment.name")({ fg = c.type }), -- LEGACY
+		sym("@text.note")({ fg = c.info, gui = "bold" }), -- LEGACY: use @comment.note
+		sym("@text.warning")({ fg = c.warning, gui = "bold" }), -- LEGACY: use @comment.warning
+		sym("@text.danger")({ fg = c.error, gui = "bold" }), -- LEGACY: use @comment.error
+		sym("@text.diff.add")({ fg = c.git_add }), -- LEGACY: use @diff.plus
+		sym("@text.diff.delete")({ fg = c.git_delete }), -- LEGACY: use @diff.minus
+
+		-- Note: @punctuation is already defined above
 
 		-- ┌────────────────────────────────────────────────────┐
 		-- │                   LSP Semantic Tokens              │
