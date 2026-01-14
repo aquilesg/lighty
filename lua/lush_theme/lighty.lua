@@ -436,55 +436,55 @@ local theme = lush(function(injected_functions)
 		sym("@text.todo")({ fg = c.warning, gui = "bold" }),
 
 		-- Comments
-		sym("@comment")({ fg = c.comment }),
-		sym("@comment.documentation")({ fg = p.forest_green.li(10) }),
-		sym("@comment.error")({ fg = c.error, gui = "bold" }),
-		sym("@comment.warning")({ fg = c.warning, gui = "bold" }),
-		sym("@comment.todo")({ fg = c.warning, gui = "bold" }),
-		sym("@comment.note")({ fg = c.info, gui = "bold" }),
+		sym("@comment")({ Comment }), -- line and block comments (link to base syntax)
+		sym("@comment.documentation")({ fg = p.forest_green.li(10) }), -- comments documenting code
+		sym("@comment.error")({ fg = c.error, gui = "bold" }), -- error-type comments (e.g. `ERROR`, `FIXME`)
+		sym("@comment.warning")({ fg = c.warning, gui = "bold" }), -- warning-type comments (e.g. `WARNING`, `HACK`)
+		sym("@comment.todo")({ fg = c.warning, gui = "bold" }), -- todo-type comments (e.g. `TODO`, `WIP`)
+		sym("@comment.note")({ fg = c.info, gui = "bold" }), -- note-type comments (e.g. `NOTE`, `INFO`)
 
 		-- Punctuation
-		sym("@punctuation")({ fg = c.delimiter }),
-		sym("@punctuation.bracket")({ fg = c.delimiter }),
-		sym("@punctuation.delimiter")({ fg = c.delimiter }),
-		sym("@punctuation.special")({ fg = c.special }),
+		sym("@punctuation")({ Delimiter }), -- LEGACY: use specific @punctuation.* captures (link to base syntax)
+		sym("@punctuation.bracket")({ fg = c.delimiter }), -- brackets (e.g. `()`, `{}`, `[]`)
+		sym("@punctuation.delimiter")({ Delimiter }), -- delimiters (e.g. `;`, `.`, `,`) (link to base syntax)
+		sym("@punctuation.special")({ fg = c.special }), -- special symbols (e.g. `{}` in string interpolation)
 
 		-- Constants
-		sym("@constant")({ fg = c.constant }),
-		sym("@constant.builtin")({ fg = p.teal.li(10) }),
-		sym("@constant.macro")({ fg = c.define }),
+		sym("@constant")({ fg = c.constant }), -- constant identifiers
+		sym("@constant.builtin")({ Special }), -- built-in constant values (link to base syntax)
+		sym("@constant.macro")({ Define }), -- constants defined by the preprocessor (link to base syntax)
 
 		-- Preprocessor
-		sym("@define")({ fg = c.define }), -- LEGACY: use @keyword.directive.define
-		sym("@macro")({ fg = c.macro }), -- LEGACY: use @function.macro
-		sym("@preproc")({ fg = c.preproc }), -- LEGACY: use @keyword.directive
+		sym("@define")({ Define }), -- LEGACY: use @keyword.directive.define (link to base syntax)
+		sym("@macro")({ Macro }), -- LEGACY: use @function.macro (link to base syntax)
+		sym("@preproc")({ PreProc }), -- LEGACY: use @keyword.directive (link to base syntax)
 
 		-- Strings & Characters
-		sym("@string")({ fg = p.red.da(20) }), -- string literals
+		sym("@string")({ String }), -- string literals (link to base syntax)
 		sym("@string.documentation")({ fg = p.forest_green.li(10), gui = "italic" }), -- string documenting code (e.g. Python docstrings)
 		sym("@string.regexp")({ fg = c.special }), -- regular expressions
 		sym("@string.regex")({ fg = c.special }), -- LEGACY: use @string.regexp
-		sym("@string.escape")({ fg = c.special_char }), -- escape sequences
-		sym("@string.special")({ fg = c.special_char }), -- other special strings (e.g. dates)
+		sym("@string.escape")({ SpecialChar }), -- escape sequences (link to base syntax)
+		sym("@string.special")({ SpecialChar }), -- other special strings (e.g. dates) (link to base syntax)
 		sym("@string.special.symbol")({ fg = c.special }), -- symbols or atoms
 		sym("@string.special.path")({ fg = p.teal }), -- filenames
 		sym("@string.special.url")({ fg = p.teal.li(20), gui = "underline" }), -- URIs (e.g. hyperlinks)
-		sym("@character")({ fg = p.red.li(10) }), -- character literals
-		sym("@character.special")({ fg = c.special_char }), -- special characters (e.g. wildcards)
+		sym("@character")({ Character }), -- character literals (link to base syntax)
+		sym("@character.special")({ SpecialChar }), -- special characters (e.g. wildcards) (link to base syntax)
 
 		-- Numbers
-		sym("@number")({ fg = c.number }), -- numeric literals
-		sym("@number.float")({ fg = p.orange.li(10) }), -- floating-point number literals
-		sym("@float")({ fg = p.orange.li(10) }), -- LEGACY: use @number.float
-		sym("@boolean")({ fg = c.boolean }), -- boolean literals
+		sym("@number")({ Number }), -- numeric literals (link to base syntax)
+		sym("@number.float")({ Float }), -- floating-point number literals (link to base syntax)
+		sym("@float")({ Float }), -- LEGACY: use @number.float (link to base syntax)
+		sym("@boolean")({ Boolean }), -- boolean literals (link to base syntax)
 
 		-- Functions
-		sym("@function")({ fg = c.func }),
-		sym("@function.builtin")({ fg = c.comment }),
-		sym("@function.macro")({ fg = c.macro }),
-		sym("@function.call")({ fg = c.func }),
-		sym("@function.method")({ fg = c.func }),
-		sym("@function.method.call")({ fg = c.func }),
+		sym("@function")({ Function }), -- function definitions (link to base syntax)
+		sym("@function.builtin")({ Special }), -- built-in functions (link to base syntax)
+		sym("@function.macro")({ Macro }), -- preprocessor macros (link to base syntax)
+		sym("@function.call")({ fg = c.func }), -- function calls
+		sym("@function.method")({ fg = c.func }), -- method definitions
+		sym("@function.method.call")({ fg = c.func }), -- method calls
 
 		-- Parameters & Variables
 		sym("@parameter")({ fg = c.parameter }), -- LEGACY: use @variable.parameter
@@ -501,9 +501,9 @@ local theme = lush(function(injected_functions)
 		sym("@property")({ fg = c.property }), -- similar to `@variable.member`, for properties
 
 		-- Types
-		sym("@type")({ fg = c.type }), -- type or class definitions and annotations
+		sym("@type")({ Type }), -- type or class definitions and annotations (link to base syntax)
 		sym("@type.builtin")({ fg = p.blue.li(10) }), -- built-in types
-		sym("@type.definition")({ fg = p.teal }), -- identifiers in type definitions
+		sym("@type.definition")({ Typedef }), -- identifiers in type definitions (link to base syntax)
 		sym("@type.qualifier")({ fg = c.keyword }), -- type qualifiers
 
 		-- Attributes
@@ -519,37 +519,37 @@ local theme = lush(function(injected_functions)
 		sym("@module.builtin")({ fg = p.blue.li(10) }), -- built-in modules or namespaces
 
 		-- Keywords & Control Flow
-		sym("@keyword")({ fg = c.keyword }), -- keywords not fitting into specific categories
+		sym("@keyword")({ Keyword }), -- keywords not fitting into specific categories (link to base syntax)
 		sym("@keyword.coroutine")({ fg = c.keyword }), -- keywords related to coroutines (e.g. `async`, `await`)
 		sym("@keyword.function")({ fg = c.keyword }), -- keywords that define a function (e.g. `func`, `def`)
 		sym("@keyword.operator")({ fg = c.operator }), -- operators that are English words (e.g. `and`, `or`, `not`)
-		sym("@keyword.import")({ fg = c.include }), -- keywords for including modules (e.g. `import`, `from`)
+		sym("@keyword.import")({ Include }), -- keywords for including modules (e.g. `import`, `from`) (link to base syntax)
 		sym("@keyword.type")({ fg = c.type }), -- keywords describing composite types (e.g. `struct`, `enum`)
-		sym("@keyword.modifier")({ fg = p.blue.li(10) }), -- keywords modifying other constructs (e.g. `const`, `static`)
-		sym("@keyword.repeat")({ fg = c.loop }), -- keywords related to loops (e.g. `for`, `while`)
+		sym("@keyword.modifier")({ StorageClass }), -- keywords modifying other constructs (e.g. `const`, `static`) (link to base syntax)
+		sym("@keyword.repeat")({ Repeat }), -- keywords related to loops (e.g. `for`, `while`) (link to base syntax)
 		sym("@keyword.return")({ fg = c.keyword }), -- keywords like `return` and `yield`
-		sym("@keyword.debug")({ fg = c.error }), -- keywords related to debugging
-		sym("@keyword.exception")({ fg = c.exception }), -- keywords related to exceptions (e.g. `throw`, `catch`)
-		sym("@keyword.conditional")({ fg = c.conditional }), -- keywords related to conditionals (e.g. `if`, `else`)
+		sym("@keyword.debug")({ Debug }), -- keywords related to debugging (link to base syntax)
+		sym("@keyword.exception")({ Exception }), -- keywords related to exceptions (e.g. `throw`, `catch`) (link to base syntax)
+		sym("@keyword.conditional")({ Conditional }), -- keywords related to conditionals (e.g. `if`, `else`) (link to base syntax)
 		sym("@keyword.conditional.ternary")({ fg = c.conditional }), -- ternary operator (e.g. `?`, `:`)
-		sym("@keyword.directive")({ fg = c.preproc }), -- various preprocessor directives and shebangs
-		sym("@keyword.directive.define")({ fg = c.define }), -- preprocessor definition directives
+		sym("@keyword.directive")({ PreProc }), -- various preprocessor directives and shebangs (link to base syntax)
+		sym("@keyword.directive.define")({ Define }), -- preprocessor definition directives (link to base syntax)
 
-		sym("@conditional")({ fg = c.conditional }),
-		sym("@repeat")({ fg = c.loop }),
-		sym("@label")({ fg = c.label }),
-		sym("@operator")({ fg = c.operator }),
-		sym("@exception")({ fg = c.exception }),
-		sym("@include")({ fg = c.include }),
+		sym("@conditional")({ Conditional }), -- LEGACY: use @keyword.conditional (link to base syntax)
+		sym("@repeat")({ Repeat }), -- LEGACY: use @keyword.repeat (link to base syntax)
+		sym("@label")({ Label }), -- GOTO and other labels (link to base syntax)
+		sym("@operator")({ Operator }), -- symbolic operators (link to base syntax)
+		sym("@exception")({ Exception }), -- LEGACY: use @keyword.exception (link to base syntax)
+		sym("@include")({ Include }), -- LEGACY: use @keyword.import (link to base syntax)
 
 		-- Tags & Attributes (HTML/JSX)
-		sym("@tag")({ fg = c.tag, bg = p.forest_green.li(55) }), -- XML-style tag names (e.g. in HTML, JSX)
+		sym("@tag")({ Tag }), -- XML-style tag names (e.g. in HTML, JSX) (link to base syntax)
 		sym("@tag.builtin")({ fg = c.tag }), -- builtin tag names (e.g. HTML5 tags)
 		sym("@tag.attribute")({ fg = c.property }), -- attributes (e.g. `id`, `class`)
 		sym("@tag.delimiter")({ fg = c.delimiter }), -- tag delimiters (e.g. `<`, `>`, `/`)
 
 		-- Debug
-		sym("@debug")({ fg = c.error }), -- LEGACY: use @keyword.debug
+		sym("@debug")({ Debug }), -- LEGACY: use @keyword.debug (link to base syntax)
 
 		-- Markup (Markdown, etc.)
 		sym("@markup")({ fg = c.fg }),
